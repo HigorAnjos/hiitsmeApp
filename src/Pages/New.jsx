@@ -1,4 +1,5 @@
 import React from 'react';
+import { setNewEntry } from '../services/API';
 
 class New extends React.Component {
   constructor() {
@@ -23,13 +24,20 @@ class New extends React.Component {
 
   buttonCLickSalve = (event) => {
     event.preventDefault();
-    console.log('Botao')
-    // Guardar dados na api
+    const { selectedCategory, done, reaction, choice } = this.state;
+    const newEntry = {
+      done,
+      reaction,
+      choice,
+      date: new Date(),
+    }
+    setNewEntry(newEntry, selectedCategory);
   }
 
   newCategory = (event) => {
     event.preventDefault();
-    console.log("ADD Categoria na api")
+    console.log("ADD Categoria na api");
+    // criar nova categoria na API
   }
 
   render() {
