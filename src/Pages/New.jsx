@@ -6,12 +6,13 @@ class New extends React.Component {
     super();
 
     this.state = {   
-      categories: ['Option 1', 'Option 2', 'Option 3'],
+      categories: ['estudos'],
       done: '',
       reaction: '',
       choice: '',
-      selectedCategory: '',
+      selectedCategory: 'estudos',
       fildAddCategory: '',
+      inputValidate: true,
     };
   }
 
@@ -19,7 +20,7 @@ class New extends React.Component {
     console.log("name: ",name, "Value: ", value);
     this.setState({
       [name]: value
-    })
+    }, () => { this.newInputValidate() })
   }
 
   buttonCLickSalve = (event) => {
@@ -36,17 +37,40 @@ class New extends React.Component {
 
   newCategory = (event) => {
     event.preventDefault();
-    console.log("ADD Categoria na api");
-    // criar nova categoria na API
+    const { fildAddCategory } = this.state;
+    this.setState((prev) => ({
+      categories: [...prev.categories, fildAddCategory]
+    }));
+  }
+
+  newInputValidate = () => {
+    const { done, reaction, choice } = this.state;
+    if (done.length >= 3 && reaction.length >= 3 && choice.length >= 3 ) {
+      this.setState({
+        inputValidate: false,
+      });
+    }else {
+      this.setState({
+        inputValidate: true,
+      });
+    }
   }
 
   render() {
-    const { done, reaction, choice, categories, fildAddCategory } = this.state;
+    const { done,
+      reaction,
+      choice,
+      categories,
+      fildAddCategory,
+      inputValidate } = this.state;
+
     return (
       <div>
         <h1>New Input</h1>
         <form>
-          <select name="selectedCategory" onChange={ this.handleChange }>
+          <select name="selectedCategory"
+            onChange={ this.handleChange }
+          >
             {
               categories.map((op, i) => 
                 <option
@@ -91,6 +115,7 @@ class New extends React.Component {
 
           <button
           type="submit"
+          disabled={ inputValidate }
           onClick={ this.buttonCLickSalve }
           >
             Salvar
