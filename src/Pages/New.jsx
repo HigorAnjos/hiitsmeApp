@@ -5,7 +5,7 @@ class New extends React.Component {
   constructor() {
     super();
 
-    this.state = {   
+    this.state = {
       categories: ['estudos'],
       done: '',
       reaction: '',
@@ -13,6 +13,7 @@ class New extends React.Component {
       selectedCategory: 'estudos',
       fildAddCategory: '',
       inputValidate: true,
+      categoryValidate: true,
     };
   }
 
@@ -20,7 +21,7 @@ class New extends React.Component {
     console.log("name: ",name, "Value: ", value);
     this.setState({
       [name]: value
-    }, () => { this.newInputValidate() })
+    }, () => { this.newInputValidate(); this.newCategoryValidate() })
   }
 
   buttonCLickSalve = (event) => {
@@ -33,13 +34,20 @@ class New extends React.Component {
       date: new Date(),
     }
     setNewEntry(newEntry, selectedCategory);
+    // clear filds
+    this.setState({
+      done: '',
+      reaction: '',
+      choice: '',
+    });
   }
 
   newCategory = (event) => {
     event.preventDefault();
     const { fildAddCategory } = this.state;
     this.setState((prev) => ({
-      categories: [...prev.categories, fildAddCategory]
+      categories: [...prev.categories, fildAddCategory],
+      fildAddCategory: '',
     }));
   }
 
@@ -55,6 +63,18 @@ class New extends React.Component {
       });
     }
   }
+  newCategoryValidate = () => {
+    const { fildAddCategory } = this.state;
+    if (fildAddCategory.length >= 3 ) {
+      this.setState({
+        categoryValidate: false,
+      });
+    } else {
+      this.setState({
+        categoryValidate: true,
+      });
+    }
+  }
 
   render() {
     const { done,
@@ -62,7 +82,8 @@ class New extends React.Component {
       choice,
       categories,
       fildAddCategory,
-      inputValidate } = this.state;
+      inputValidate,
+      categoryValidate } = this.state;
 
     return (
       <div>
@@ -136,6 +157,7 @@ class New extends React.Component {
           </label>
           <button
           type="submit"
+          disabled={ categoryValidate }
           onClick={ this.newCategory }
           >
             Salvar
