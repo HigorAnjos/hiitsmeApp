@@ -1,9 +1,14 @@
 import React from 'react';
+import Asidecards from '../Components/Asidecards';
+import CardView from '../Components/Mainview/CardView';
 
 class Main extends React.Component {
   render() {
-    return(
-      <h1>MAIN</h1>
+    return (
+      <div id="main">
+        <Asidecards />
+        <CardView />
+      </div>
     );
   }
 }

@@ -1,0 +1,16 @@
+#card {
+  background-color: rgb(255, 245, 231);
+  margin: 5px;
+}
+#category {
+  font-size: 15px;
+  background-color: rgba(240, 248, 255);
+}
+#done, #reaction, #choice {
+  font-size: 13px;
+}
+
+#card-footer {
+  font-size: 10px;
+  text-align-last: right;
+}
