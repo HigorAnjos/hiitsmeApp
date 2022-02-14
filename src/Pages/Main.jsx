@@ -8,6 +8,9 @@ class Main extends React.Component {
     super();
     this.state = {
       storageApp: [],
+      fildDone: '',
+      fildReaction: '',
+      fildChoice: '',
     }
   }
 
@@ -17,12 +20,16 @@ class Main extends React.Component {
     });
   }
 
-
   render() {
+    const { fildDone, fildReaction, fildChoice } = this.props;
     return (
       <div id="main">
         <Asidecards { ...this.state } />
-        <CardView />
+        <CardView
+          done={ fildDone }
+          reaction={ fildReaction }
+          choice={ fildChoice }
+        />
       </div>
     );
   }
